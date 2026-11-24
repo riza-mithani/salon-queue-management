@@ -1,3 +1,5 @@
+# Live Website
+https://salt-n-pepper-salon-202612114.streamlit.app/
 # SALT N' PEPPER – Salon Queue Management System
 
 A web-based salon queue management system built using Python and Streamlit.
