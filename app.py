@@ -809,6 +809,120 @@ SALON_THEME_CSS = """
         color: #30251F !important;
         font-weight: 700 !important;
     }
+
+    /* Staff PIN Authentication Card */
+    [data-testid="stColumn"] div.stVerticalBlock:has(.pin-card-wrapper) {
+        background: #FFFAEA !important;
+        border: 1px solid var(--card-border) !important;
+        border-radius: 20px !important;
+        padding: 2.25rem 2rem 1.85rem 2rem !important;
+        box-shadow: 0 16px 40px rgba(48, 37, 31, 0.08) !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .pin-card-wrapper {
+        width: 100%;
+        text-align: center;
+    }
+
+    .pin-card-header .salon-wordmark {
+        font-size: 1.65rem;
+        color: #30251F;
+        margin-bottom: 0.35rem;
+    }
+
+    .pin-access-badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #D9684F;
+        background: rgba(217, 104, 79, 0.08);
+        border: 1px solid rgba(217, 104, 79, 0.25);
+        border-radius: 20px;
+        padding: 0.22rem 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .pin-main-heading {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 2.1rem;
+        font-weight: 700;
+        color: #30251F;
+        margin: 0 0 0.35rem 0;
+        line-height: 1.2;
+    }
+
+    .pin-instruction-text {
+        font-size: 0.95rem;
+        color: var(--charcoal-muted);
+        line-height: 1.5;
+        margin: 0 0 1.25rem 0;
+    }
+
+    .pin-error-box {
+        background: rgba(217, 104, 79, 0.1);
+        border: 1px solid #D9684F;
+        border-radius: 10px;
+        padding: 0.65rem 0.85rem;
+        margin-bottom: 1rem;
+        color: #C2543C;
+        font-size: 0.88rem;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    div[data-testid="stTextInput"]:has(input[type="password"]) input {
+        text-align: center !important;
+        font-size: 1.5rem !important;
+        letter-spacing: 8px !important;
+        font-weight: 700 !important;
+        color: #30251F !important;
+        background: #FFF4D6 !important;
+        border: 1.5px solid rgba(217, 104, 79, 0.35) !important;
+        border-radius: 12px !important;
+        height: 52px !important;
+        box-sizing: border-box !important;
+    }
+
+    div[data-testid="stTextInput"]:has(input[type="password"]) input:focus {
+        border-color: #D9684F !important;
+        box-shadow: 0 0 0 3px rgba(217, 104, 79, 0.2) !important;
+    }
+
+    /* Back to Home subtle button on PIN screen */
+    div[class*="st-key-pin_back_home_btn"] button {
+        background: transparent !important;
+        color: var(--charcoal-muted) !important;
+        border: 1px solid var(--card-border) !important;
+        font-weight: 600 !important;
+        font-size: 0.88rem !important;
+        border-radius: 10px !important;
+        margin-top: 0.5rem !important;
+        height: 38px !important;
+    }
+
+    div[class*="st-key-pin_back_home_btn"] button:hover {
+        background: #FFF4D6 !important;
+        color: var(--charcoal-dark) !important;
+        border-color: var(--rose-pink) !important;
+    }
+
+    @media (max-width: 768px) {
+        [data-testid="stColumn"] div.stVerticalBlock:has(.pin-card-wrapper) {
+            padding: 1.5rem 1.15rem !important;
+            margin-top: 1rem !important;
+            border-radius: 16px !important;
+        }
+        .pin-main-heading {
+            font-size: 1.75rem !important;
+        }
+    }
 </style>
 """
 st.markdown(SALON_THEME_CSS, unsafe_allow_html=True)
@@ -1524,6 +1638,47 @@ TRANSLATIONS: Dict[str, Dict[str, str]] = {
     "back_to_home": {
         "en": "← Back to Home",
         "gu": "← હોમ પર પાછા જાઓ",
+    },
+    # Staff PIN Authentication
+    "pin_staff_access": {
+        "en": "STAFF ACCESS",
+        "gu": "સ્ટાફ એક્સેસ",
+    },
+    "pin_welcome_back": {
+        "en": "Welcome Back",
+        "gu": "સ્વાગત છે",
+    },
+    "pin_enter_instruction": {
+        "en": "Enter your staff PIN to continue.",
+        "gu": "આગળ વધવા માટે તમારો સ્ટાફ પિન દાખલ કરો.",
+    },
+    "pin_input_label": {
+        "en": "Staff PIN",
+        "gu": "સ્ટાફ પિન",
+    },
+    "pin_input_placeholder": {
+        "en": "••••",
+        "gu": "••••",
+    },
+    "pin_btn_unlock": {
+        "en": "Unlock Dashboard",
+        "gu": "ડેશબોર્ડ અનલૉક કરો",
+    },
+    "pin_err_incorrect": {
+        "en": "Incorrect PIN. Please try again.",
+        "gu": "ખોટો પિન. કૃપા કરીને ફરી પ્રયાસ કરો.",
+    },
+    "pin_back_to_home": {
+        "en": "← Back to Home",
+        "gu": "← હોમ પર પાછા જાઓ",
+    },
+    "pin_staff_logged_in": {
+        "en": "Staff Session Active",
+        "gu": "સ્ટાફ સત્ર સક્રિય છે",
+    },
+    "pin_btn_logout": {
+        "en": "Log Out",
+        "gu": "લૉગ આઉટ",
     },
     # Home Screen
     "status_open": {
@@ -2301,6 +2456,15 @@ if "cust_phone" not in st.session_state:
 if "service_limit_warning" not in st.session_state:
     st.session_state.service_limit_warning = False
 
+if "staff_authenticated" not in st.session_state:
+    st.session_state.staff_authenticated = False
+
+if "pin_error" not in st.session_state:
+    st.session_state.pin_error = None
+
+STAFF_PIN = "2026"
+PROTECTED_SCREENS = {"reception", "barber", "admin"}
+
 SCREENS_LIST = [
     ("home", "nav_home", "🏠"),
     ("join", "nav_join", "📝"),
@@ -2439,6 +2603,20 @@ def render_navigation_sidebar() -> str:
             on_change=on_sidebar_nav_change,
         )
 
+        if st.session_state.get("staff_authenticated", False):
+            st.markdown(
+                f"""
+                <div style="background: rgba(135, 155, 120, 0.15); border: 1px solid var(--fresh-sage); border-radius: 8px; padding: 0.45rem 0.65rem; margin-top: 0.85rem; margin-bottom: 0.4rem; display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #4B6338;">● {t('pin_staff_logged_in', current_lang)}</span>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            if st.button(f"🔒 {t('pin_btn_logout', current_lang)}", key="sidebar_staff_logout_btn", use_container_width=True):
+                st.session_state.staff_authenticated = False
+                st.session_state.pin_error = None
+                st.rerun()
+
         # Dedicated testing and verification panel completely separated from customer screens
         render_queue_testing_panel()
 
@@ -2535,6 +2713,104 @@ def render_queue_testing_panel():
             """,
             unsafe_allow_html=True,
         )
+
+
+# ==============================================================================
+# 5B. STAFF AUTHENTICATION & SESSION MANAGEMENT
+# ==============================================================================
+
+def render_staff_session_bar():
+    """Renders a sleek, unobtrusive staff session header bar with a Log Out button on staff screens."""
+    lang = st.session_state.get("lang", "en")
+    active_scr = st.session_state.get("active_screen", "staff")
+
+    col_status, col_act = st.columns([8, 2.5], vertical_alignment="center")
+    with col_status:
+        st.markdown(
+            f"""
+            <div style="font-size: 0.82rem; font-weight: 600; color: #4B6338; display: flex; align-items: center; gap: 0.45rem; padding: 0.2rem 0;">
+                <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--fresh-sage);"></span>
+                <span>{t('pin_staff_logged_in', lang)}</span>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with col_act:
+        if st.button(f"🔒 {t('pin_btn_logout', lang)}", key=f"staff_bar_logout_{active_scr}", use_container_width=True):
+            st.session_state.staff_authenticated = False
+            st.session_state.pin_error = None
+            st.rerun()
+    st.markdown('<hr style="margin: 0.25rem 0 0.85rem 0; border: none; border-bottom: 1px dashed rgba(227, 154, 158, 0.4);">', unsafe_allow_html=True)
+
+
+def render_screen_staff_pin(target_screen: str):
+    """Screen for staff PIN entry to protect Reception, Barber, and Admin screens."""
+    lang = st.session_state.get("lang", "en")
+
+    st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
+
+    col_l, col_center, col_r = st.columns([1, 1.4, 1])
+    with col_center:
+        with st.container(border=True):
+            st.markdown(
+                f"""
+                <div class="pin-card-wrapper">
+                    <div class="pin-card-header">
+                        <div class="salon-wordmark">{t('app_wordmark', lang)}</div>
+                        <div style="margin-top: 0.25rem;">
+                            <span class="pin-access-badge">{t('pin_staff_access', lang)}</span>
+                        </div>
+                        <h2 class="pin-main-heading">{t('pin_welcome_back', lang)}</h2>
+                        <p class="pin-instruction-text">{t('pin_enter_instruction', lang)}</p>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            # Display error message if incorrect PIN was submitted
+            if st.session_state.get("pin_error"):
+                st.markdown(
+                    f"""
+                    <div class="pin-error-box">
+                        ⚠️ {st.session_state['pin_error']}
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+
+            with st.form("staff_pin_auth_form", clear_on_submit=False, border=False):
+                pin_val = st.text_input(
+                    label=t("pin_input_label", lang),
+                    type="password",
+                    max_chars=8,
+                    placeholder=t("pin_input_placeholder", lang),
+                    label_visibility="collapsed",
+                    key="staff_pin_entry_input",
+                )
+
+                unlock_clicked = st.form_submit_button(
+                    f"🔓 {t('pin_btn_unlock', lang)}",
+                    type="primary",
+                    use_container_width=True,
+                )
+
+                if unlock_clicked:
+                    if pin_val.strip() == STAFF_PIN:
+                        st.session_state.staff_authenticated = True
+                        st.session_state.pin_error = None
+                        st.rerun()
+                    else:
+                        st.session_state.staff_authenticated = False
+                        st.session_state.pin_error = t("pin_err_incorrect", lang)
+                        st.rerun()
+
+            st.markdown("<div style='height: 0.25rem;'></div>", unsafe_allow_html=True)
+            if st.button(t("pin_back_to_home", lang), key="pin_back_home_btn", use_container_width=True):
+                st.session_state.pin_error = None
+                navigate_to("home")
+
+    st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 
 # ==============================================================================
@@ -3587,6 +3863,8 @@ def render_screen_reception():
     lang = st.session_state.lang
     data_mgr = get_data_manager()
 
+    render_staff_session_bar()
+
     # Show toast if set from previous action
     if "reception_toast" in st.session_state:
         msg = st.session_state.pop("reception_toast")
@@ -3879,6 +4157,8 @@ def render_screen_barber():
     """Screen 5: Barber View (/barber/:name) - Complete station management per docs/02-screens.md."""
     lang = st.session_state.lang
     data_mgr = get_data_manager()
+
+    render_staff_session_bar()
 
     # Show toast if set from previous action
     if "barber_toast" in st.session_state:
@@ -4483,6 +4763,8 @@ def render_screen_admin():
     lang = st.session_state.lang
     data_mgr = get_data_manager()
 
+    render_staff_session_bar()
+
     # 1. SCREEN HEADER
     st.markdown(
         f"""
@@ -4783,6 +5065,11 @@ def main():
     """Main routing controller orchestrating the 7 screens."""
     render_top_bar()
     active_screen = render_navigation_sidebar()
+
+    # Protect staff screens (Reception, Barber, Admin) with PIN authentication
+    if active_screen in PROTECTED_SCREENS and not st.session_state.get("staff_authenticated", False):
+        render_screen_staff_pin(active_screen)
+        return
 
     if active_screen == "home":
         render_screen_home()
