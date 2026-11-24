@@ -1,6 +1,8 @@
 # SALT N' PEPPER -- Salon Queue Management System
 
 **Live demo:** https://salt-n-pepper-salon-202612114.streamlit.app/
+
+
 **Hosted on:** Streamlit Community Cloud
 
 **Staff demo PIN:** `2026`
