@@ -32,6 +32,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Set, Tuple
 import streamlit as st
+import streamlit.components.v1 as components
 
 # ==============================================================================
 # 1. PAGE CONFIGURATION & STYLING
@@ -913,14 +914,287 @@ SALON_THEME_CSS = """
         border-color: var(--rose-pink) !important;
     }
 
-    @media (max-width: 768px) {
+    /* Desktop Sidebar Smooth Hover Expand/Collapse Animation */
+    @media (min-width: 769px) and (hover: hover) and (pointer: fine) {
+        section[data-testid="stSidebar"] {
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                        width 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.32s ease !important;
+            box-shadow: 4px 0 28px rgba(48, 37, 31, 0.12) !important;
+        }
+
+        button[data-testid="stExpandSidebarButton"],
+        button[aria-label="Expand sidebar"] {
+            transition: all 0.25s ease !important;
+            border-radius: 8px !important;
+        }
+
+        button[data-testid="stExpandSidebarButton"]:hover,
+        button[aria-label="Expand sidebar"]:hover {
+            background-color: rgba(217, 104, 79, 0.12) !important;
+            color: var(--orange-red) !important;
+            transform: scale(1.08) !important;
+        }
+    }
+
+    /* ==========================================================================
+       COMPREHENSIVE MOBILE RESPONSIVE SUITE (375px, 390px, 430px & viewports <= 768px)
+       ========================================================================== */
+    @media screen and (max-width: 768px) {
+        /* 1. Viewport & Body Sizing - Prevent Horizontal Scrolling */
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .main .block-container {
+            padding-left: 0.85rem !important;
+            padding-right: 0.85rem !important;
+            padding-top: 0.75rem !important;
+            padding-bottom: 2.5rem !important;
+            max-width: 100vw !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            overflow-x: hidden !important;
+        }
+
+        /* 2. Fluid Layout & Universal Multi-Column Vertical Stacking */
+        div[data-testid="stHorizontalBlock"] {
+            flex-direction: column !important;
+            flex-wrap: wrap !important;
+            gap: 0.75rem !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            flex: 1 1 100% !important;
+            margin-bottom: 0.35rem !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 3. Cards & Container Boundaries */
+        div[data-testid="stVerticalBlockBorderWrapper"],
+        div[data-testid="stVerticalBlock"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .summary-card,
+        .barber-hero-card,
+        .barber-customer-card,
+        .reception-summary-box,
+        .reception-summary-card,
+        .waiting-card-row,
+        .waiting-card-amber,
+        .tv-station-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            padding: 1rem !important;
+        }
+
+        /* 4. Staff & Station Card Resizing on Mobile */
+        [data-testid="stColumn"] div.stVerticalBlock:has(.home-staff-content) {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            padding: 1rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+        .home-staff-content .home-staff-img-frame {
+            height: 200px !important;
+        }
+
+        [data-testid="stColumn"] div.stVerticalBlock:has(.join-staff-content) {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            padding: 1rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+        .join-staff-content .join-staff-img-frame {
+            height: 165px !important;
+        }
+
+        [data-testid="stColumn"] div.stVerticalBlock:has(.tv-station-card-inner) {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            padding: 1rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+        .tv-station-img-frame {
+            height: 165px !important;
+        }
+
+        /* 5. Typography Scaling */
+        .salon-heading-serif {
+            font-size: 1.65rem !important;
+            line-height: 1.25 !important;
+        }
+        h1.salon-heading-serif,
+        h1 {
+            font-size: 1.85rem !important;
+            line-height: 1.2 !important;
+        }
+        h2.salon-heading-serif,
+        h2 {
+            font-size: 1.45rem !important;
+            line-height: 1.25 !important;
+        }
+        h3.salon-heading-serif,
+        h3 {
+            font-size: 1.2rem !important;
+            line-height: 1.3 !important;
+        }
+        .salon-wordmark {
+            font-size: 1.45rem !important;
+            letter-spacing: 1.2px !important;
+        }
+        .section-eyebrow {
+            font-size: 0.72rem !important;
+            letter-spacing: 1.5px !important;
+        }
+
+        /* 6. Touch Targets & Form Inputs (Min 44px Height) */
+        .stButton > button,
+        .btn-gold-cta > button,
+        .stFormSubmitButton > button {
+            min-height: 44px !important;
+            height: auto !important;
+            font-size: 0.95rem !important;
+            padding: 0.65rem 1rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        div[class*="st-key-btn_staff"] button {
+            height: 44px !important;
+            min-height: 44px !important;
+            max-height: none !important;
+            font-size: 0.88rem !important;
+        }
+
+        div[data-testid="stTextInput"] input,
+        div[data-testid="stNumberInput"] input,
+        div[data-testid="stSelectbox"] select {
+            min-height: 44px !important;
+            font-size: 1rem !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 7. Header Top Bar on Mobile */
+        .top-brand-header {
+            text-align: center !important;
+            margin-bottom: 0.35rem !important;
+        }
+        .top-nav-links {
+            gap: 0.75rem !important;
+            padding-top: 0.2rem !important;
+            margin-bottom: 0.4rem !important;
+            justify-content: center !important;
+        }
+        .nav-link-item {
+            font-size: 0.85rem !important;
+            padding: 0.25rem 0.4rem !important;
+        }
+        div[data-testid="stRadio"]:has(input[name*="lang_toggle_radio"]) {
+            display: flex !important;
+            justify-content: center !important;
+            margin-top: 0.2rem !important;
+        }
+        div[data-testid="stRadio"]:has(input[name*="lang_toggle_radio"]) > div {
+            justify-content: center !important;
+        }
+
+        /* 8. Home Screen Hero Adjustments */
+        .home-hero-sanctuary-frame {
+            height: 220px !important;
+            margin-top: 0.85rem !important;
+        }
+        .hero-queue-card {
+            padding: 0.75rem 1rem !important;
+            margin: 0.75rem 0 !important;
+        }
+
+        /* 9. Join Queue Banner & Card Adjustments */
+        .screen-banner {
+            padding-left: 0.75rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        /* 10. My Status Countdown & Proximity Alert */
+        .circular-countdown {
+            width: 140px !important;
+            height: 140px !important;
+            margin: 1rem auto !important;
+        }
+        .proximity-alert-banner {
+            flex-direction: column !important;
+            text-align: center !important;
+            padding: 1rem !important;
+            gap: 0.5rem !important;
+        }
+        .gold-called-banner {
+            padding: 1.4rem 1rem !important;
+        }
+
+        /* 11. Reception Dashboard Metrics & Actions */
+        .reception-summary-val {
+            font-size: 1.85rem !important;
+        }
+        .reception-summary-box, .reception-summary-card {
+            padding: 0.85rem 0.75rem !important;
+        }
+
+        /* 12. Barber View Digital Timer Box */
+        .digital-timer-box {
+            padding: 1rem !important;
+            margin: 0.75rem 0 1rem 0 !important;
+        }
+        .digital-timer-value {
+            font-size: 2.2rem !important;
+            letter-spacing: 3px !important;
+        }
+
+        /* 13. Waiting Area TV Header & Called Banner */
+        .tv-header-status-wrapper {
+            text-align: left !important;
+            margin-top: 0.4rem !important;
+        }
+        .tv-called-banner {
+            padding: 1.25rem 0.85rem !important;
+        }
+        .tv-called-banner div:nth-child(2) {
+            font-size: 2.1rem !important;
+        }
+        .tv-upnext-time-wrapper {
+            text-align: left !important;
+            margin-top: 0.25rem !important;
+        }
+
+        /* 14. Staff PIN Card on Mobile */
         [data-testid="stColumn"] div.stVerticalBlock:has(.pin-card-wrapper) {
             padding: 1.5rem 1.15rem !important;
-            margin-top: 1rem !important;
+            margin-top: 0.85rem !important;
+            margin-bottom: 1.5rem !important;
             border-radius: 16px !important;
         }
         .pin-main-heading {
             font-size: 1.75rem !important;
+        }
+
+        /* 15. Sidebar Navigation on Mobile */
+        [data-testid="stSidebar"] {
+            max-width: 85vw !important;
+            width: 85vw !important;
         }
     }
 </style>
@@ -2501,7 +2775,7 @@ def render_top_bar():
     with col_brand:
         st.markdown(
             f"""
-            <div style="padding-top: 0.25rem;">
+            <div class="top-brand-header" style="padding-top: 0.25rem;">
                 <h1 class="salon-wordmark" style="font-size: 1.85rem;">{t('app_wordmark', lang)}</h1>
                 <small style="font-size: 0.75rem; color: var(--charcoal-muted); letter-spacing: 1.2px; text-transform: uppercase;">
                     {t('tagline', lang)}
@@ -2514,7 +2788,7 @@ def render_top_bar():
     with col_nav:
         st.markdown(
             f"""
-            <div style="display: flex; gap: 1.75rem; align-items: center; justify-content: center; height: 100%; padding-top: 0.6rem;">
+            <div class="top-nav-links" style="display: flex; gap: 1.25rem; align-items: center; justify-content: center; height: 100%; padding-top: 0.6rem; flex-wrap: wrap;">
                 <a href="?page=home" class="nav-link-item"><strong>{t('nav_home', lang)}</strong></a>
                 <a href="?page=home#about" class="nav-link-item">{t('nav_about', lang)}</a>
                 <a href="?page=home#services" class="nav-link-item">{t('nav_services', lang)}</a>
@@ -2554,8 +2828,126 @@ def on_sidebar_nav_change():
         st.query_params["page"] = target_screen
 
 
+def render_desktop_sidebar_hover():
+    """Desktop interaction: auto-expands sidebar on hover, auto-collapses on mouseleave.
+    Mobile/touch devices: completely disabled, preserving native tap-to-open and tap-to-close."""
+    components.html(
+        """
+        <script>
+        (function() {
+            try {
+                const parentWin = window.parent;
+                if (!parentWin || !parentWin.document) return;
+                const parentDoc = parentWin.document;
+
+                // STRICT DESKTOP CHECK: fine pointer (mouse), hover capability, and viewport width > 768px
+                const isDesktop = parentWin.matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine)').matches;
+                if (!isDesktop) return; // Do NOT attach hover listeners on mobile/touch devices
+
+                // Cleanup any existing listeners
+                if (parentWin.__salonSidebarCleanup) {
+                    parentWin.__salonSidebarCleanup();
+                }
+
+                let collapseTimer = null;
+                let isExpanding = false;
+
+                function getSidebar() {
+                    return parentDoc.querySelector('section[data-testid="stSidebar"]');
+                }
+
+                function getExpandButton() {
+                    return parentDoc.querySelector('button[data-testid="stExpandSidebarButton"]') ||
+                           parentDoc.querySelector('button[aria-label="Expand sidebar"]');
+                }
+
+                function getCollapseButton() {
+                    const sb = getSidebar();
+                    if (!sb) return null;
+                    return sb.querySelector('button[aria-label="Collapse sidebar"]') ||
+                           sb.querySelector('button[data-testid="stBaseButton-headerNoPadding"][aria-label="Collapse sidebar"]');
+                }
+
+                function isSidebarOpen() {
+                    const sb = getSidebar();
+                    if (!sb) return false;
+                    const rect = sb.getBoundingClientRect();
+                    return rect.width > 50 && rect.right > 50;
+                }
+
+                function expandSidebar() {
+                    if (isSidebarOpen() || isExpanding) return;
+                    const btn = getExpandButton();
+                    if (btn) {
+                        isExpanding = true;
+                        btn.click();
+                        setTimeout(() => { isExpanding = false; }, 350);
+                    }
+                }
+
+                function collapseSidebar() {
+                    if (!isSidebarOpen()) return;
+                    const btn = getCollapseButton();
+                    if (btn) {
+                        btn.click();
+                    }
+                }
+
+                function onMouseMove(e) {
+                    const open = isSidebarOpen();
+
+                    if (!open) {
+                        // Mouse enters within 36px of left viewport edge or over the expand button
+                        if (e.clientX <= 36 || (e.clientX <= 65 && e.clientY <= 65)) {
+                            if (collapseTimer) {
+                                clearTimeout(collapseTimer);
+                                collapseTimer = null;
+                            }
+                            expandSidebar();
+                        }
+                    } else {
+                        const sb = getSidebar();
+                        if (sb) {
+                            const rect = sb.getBoundingClientRect();
+                            // Inside sidebar area
+                            if (e.clientX <= rect.right + 15) {
+                                if (collapseTimer) {
+                                    clearTimeout(collapseTimer);
+                                    collapseTimer = null;
+                                }
+                            } else {
+                                // Mouse left sidebar area: start smooth collapse grace timer
+                                if (!collapseTimer) {
+                                    collapseTimer = setTimeout(() => {
+                                        collapseSidebar();
+                                        collapseTimer = null;
+                                    }, 220);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                parentDoc.addEventListener('mousemove', onMouseMove, { passive: true });
+
+                parentWin.__salonSidebarCleanup = function() {
+                    parentDoc.removeEventListener('mousemove', onMouseMove);
+                    if (collapseTimer) clearTimeout(collapseTimer);
+                };
+            } catch (err) {
+                // Graceful fallback
+            }
+        })();
+        </script>
+        """,
+        height=0,
+        width=0,
+    )
+
+
 def render_navigation_sidebar() -> str:
     """Renders the developer and reviewer screen navigator in the sidebar."""
+    render_desktop_sidebar_hover()
     current_lang = st.session_state.get("lang", "en")
     nav_options = [f"{icon} {t(nav_key, current_lang)}" for _, nav_key, icon in SCREENS_LIST]
     screen_keys = [key for key, _, _ in SCREENS_LIST]
@@ -2871,7 +3263,7 @@ def render_screen_home():
         hero_img_b64 = get_image_base64("assets/hero_beauty.jpg")
         st.markdown(
             f"""
-            <div style="width: 100%; height: 380px; border-radius: 18px; overflow: hidden; border: 2px solid var(--card-border); box-shadow: 0 12px 36px rgba(48, 37, 31, 0.08); background: #FFF4D6;">
+            <div class="home-hero-sanctuary-frame" style="width: 100%; height: 380px; border-radius: 18px; overflow: hidden; border: 2px solid var(--card-border); box-shadow: 0 12px 36px rgba(48, 37, 31, 0.08); background: #FFF4D6;">
                 <img src="{hero_img_b64}" style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block;" alt="SALt N' PEPPER Sanctuary">
             </div>
             """,
@@ -4662,7 +5054,7 @@ FIFO Waiting Queue
                     )
                 with col_u4:
                     st.markdown(
-                        f"""<div style="text-align: right;">
+                        f"""<div class="tv-upnext-time-wrapper" style="text-align: right;">
 <div style="font-weight: 700; font-size: 1.05rem; color: var(--orange-red);">⏱️ ~{est_wait} min</div>
 <div style="font-size: 0.75rem; color: var(--charcoal-muted); text-transform: uppercase; letter-spacing: 0.5px;">Estimated Wait</div>
 </div>""",
@@ -4715,7 +5107,7 @@ def render_screen_display():
         is_open = data_mgr.is_online_queue_open()
         status_chip = f"<span class='badge-status-open' style='font-size: 0.85rem;'>● {t('status_open', lang)} · Closes 9 PM</span>" if is_open else f"<span class='badge-status-closed'>● {t('err_queue_closed', lang)}</span>"
         st.markdown(
-            f"""<div style="text-align: right;">
+            f"""<div class="tv-header-status-wrapper" style="text-align: right;">
 {status_chip}
 <div style="font-size: 0.8rem; color: var(--charcoal-muted); margin-top: 0.3rem;">Auto-updates live every 5s</div>
 </div>""",
